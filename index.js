@@ -1,21 +1,18 @@
 const express = require('express');
-const {mongoose} = require ('./database');
 const cors = require('cors');
 const passport=require('passport');
-const flash = require('connect-flash');
-
+const path = require('path');
 const cookieParser=require('cookie-parser');
 const bodyParser=require('body-parser');
 const session= require('express-session');
-const User = require('./models/users.js');
 //Statics here
 
 //Statics here
 
 const app = express();
-require('./passport/local-auth');
+require('./passport/localAuth');
 //Settings
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 3000);
 
 //Middlewares
 app.use(express.json());
@@ -39,7 +36,11 @@ app.use(passport.session());
 
 
 //Routes
-app.use('/api/users', require('./routes/users.routes'));
+app.use('/api/users', require('./routes/user.routes'));
+app.use('/api/tasks', require('./routes/task.routes'));
+
+//Statics
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Start server
 app.listen(app.get('port'), ()=>{

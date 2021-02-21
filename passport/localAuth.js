@@ -2,7 +2,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const localStrategy = require('passport-local').Strategy;
 
-const User=require('../models/users');
+const User=require('../models/user');
 //passport methods
 passport.serializeUser((user, done)=>{//return session saveing after pss.use(lcl-strateg, new lclStr)
 	done(null, user._id);
