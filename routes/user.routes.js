@@ -5,13 +5,7 @@ const router = express.Router();
 const passport=require('passport');
 
 const salt = 10; 
-const User=require('../models/users');
-
-router.get ('/', async (req, res)=>{
-    const user = await User.find();
-
-    res.json(user); 
-});
+const User=require('../models/user');
 
 
 router.post('/register', (req,res,next)=> {
