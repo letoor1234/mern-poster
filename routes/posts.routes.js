@@ -7,7 +7,8 @@ const Post=require('../models/post');
 router.get ('/', async (req, res)=>{
     const user = req.user;
     if(user){
-        const posts = await Post.find({'userId':user._id});
+        const posts = await Post.find({'userId':user.user}).sort({creation: -1});
+        console.log(posts)
         if(posts){
             res.json(posts);
         } else{
@@ -22,21 +23,19 @@ router.get ('/', async (req, res)=>{
 
 router.post('/', async (req,res)=> {
     var time = Date.now();
-    const newPost = new Post(); 
-    newPost.userId= req.user._id;
+    const newPost = new Post();
+    newPost.userId= req.user.user;
     newPost.content= req.body.content;
     newPost.creation= time;
     await newPost.save();
 
     res.json({postCreated: true});
 });
-  
-router.put('/', (req,res)=>{
 
-});
-
-router.delete('/',  (req, res)=>{
-	
+router.delete('/:id',  async(req, res)=>{
+	const post = await Post.findById(req.params.id);
+    const remove= await post.remove()
+    res.json({success: true})
 })
 
 

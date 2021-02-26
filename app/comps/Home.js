@@ -3,11 +3,13 @@ import {Redirect} from 'react-router-dom'
 
 import Posts from './Posts'
 import NewPost from './NewPost'
+import UserInfo from './UserInfo'
 
 export default class Home extends Component{
     constructor(props){
         super(props)
         this.state={
+            userData: {},
             content: '',
             posts: [],
             redir: false,
@@ -26,6 +28,10 @@ export default class Home extends Component{
             if(!json.user){
                 this.setState({
                     redir: true
+                })
+            } else{
+                this.setState({
+                    userData: json
                 })
             }
         })
@@ -54,9 +60,14 @@ export default class Home extends Component{
                         <NewPost
                             func={this.getData}
                         />
+                        <UserInfo
+                            data={this.state.userData}
+                        />
                         <Posts
                             posts={this.state.posts}
+                            update={this.getData}
                         />
+
                     </Fragment>
                 )
             }    

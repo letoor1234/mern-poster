@@ -35,10 +35,15 @@ export default class Posts extends Component{
             return res.json()
         })
         .then((json)=>{
-            this.setState({
-                content: '',
-            })
-            this.props.func()
+            if(json.postCreated){
+                this.setState({
+                    content: '',
+                })
+                this.props.func()
+            } else{
+                console.log('error')
+            }
+            
         })
 
         e.preventDefault();
@@ -49,7 +54,7 @@ export default class Posts extends Component{
                 <form className='card m-3 p-1 m-3'onSubmit={(e)=>this.send(e)} style={{
                     float: 'left',
                     display: 'flex',
-                    width: '60vw',
+                    width: '55vw',
                     flexDirection: 'column'
                 }}>
                     <label htmlFor='title'>New Post!</label>
