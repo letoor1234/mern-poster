@@ -1,6 +1,7 @@
 import React, {Fragment, Component} from 'react'
 import { Link,Redirect } from 'react-router-dom'
-
+import Loading from './Loading'
+import Alert from './Alert'
 export default class Login extends Component{
     mounted= false
     constructor(props){
@@ -9,7 +10,16 @@ export default class Login extends Component{
             user: '',
             pass: '',
             redir: false,
-            load: true
+            load: true,
+
+            alertStyle: {
+                position: 'absolute',
+                left: '50vw',
+                transform: 'translateX(-50%)',
+                top: '-50%'
+            } ,
+            alertTitle: "",
+            alertContent:""
         }
     }
     componentDidMount=()=>{
@@ -54,11 +64,30 @@ export default class Login extends Component{
         .then((json)=>{ 
             if(!json.user){
                 if(!json.userExist){
-                    alert("This user doesn't exists!")
+                    this.setState({
+                        alertStyle: {
+                            position: 'absolute',
+                            left: '50vw',
+                            transform: 'translateX(-50%)',
+                            top: '35%',
+                            transition: 'top 1s'
+                        } ,
+                        alertTitle: "This user doesn't exists",
+                        alertContent:"Try again!!"
+                    })
                 } else{
                     if(!json.passVerified){
-                        alert("Incorrect password!")
-                        console.log('passincorrecta')
+                        this.setState({
+                            alertStyle: {
+                                position: 'absolute',
+                                left: '50vw',
+                                transform: 'translateX(-50%)',
+                                top: '35%',
+                                transition: 'top 1s'
+                            } ,
+                            alertTitle: "Incorrect password!",
+                            alertContent:"Try again!!"
+                        })
                     }
                 }
             } else{
@@ -79,9 +108,20 @@ export default class Login extends Component{
             [name]: value
         })
     }
+    closeAlert=()=>{
+        this.setState({
+            alertStyle: {
+                position: 'absolute',
+                left: '50vw',
+                transform: 'translateX(-50%)',
+                top: '-50%',
+                transition: 'top 1s'
+            }
+        })
+    }
     render(){
         if(this.state.load){
-            return <h1>Loading</h1>
+            return <Loading/>
         } else{
             if(this.state.redir){
                 return <Redirect to='/home'></Redirect>
@@ -101,11 +141,17 @@ export default class Login extends Component{
                             <label htmlFor='pass'>Password</label>
                             <input className='form-control p-1 mb-2'type='password' id='pass' name='pass' onChange={(e)=>this.inputChange(e)} value={this.state.pass}></input>
 
-                            <button className='btn btn-success mx-3 my-1'type='submit'>LOGIN</button>
+                            <button className='btn btn-info mx-3 my-1'type='submit'>LOGIN</button>
                             <Link to='/register'className='btn btn-outline-secondary mx-4 my-1'>
                                 Create new account!
                             </Link>
-                        </form> 
+                        </form>
+                        <Alert
+                            style= {this.state.alertStyle}
+                            title= {this.state.alertTitle}
+                            content= {this.state.alertContent}
+                            func= {this.closeAlert} 
+                        /> 
                     </Fragment>
                 )
             }

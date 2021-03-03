@@ -1,6 +1,7 @@
 import React, {Fragment, Component} from 'react'
 import { Link,Redirect } from 'react-router-dom'
-
+import Loading from './Loading'
+import Alert from './Alert'
 export default class Register extends Component{
     mounted= false
     constructor(props){
@@ -10,7 +11,16 @@ export default class Register extends Component{
             pass: '',
             mail: '',
             redir: false,
-            load: true
+            load: true,
+
+            alertStyle: {
+                position: 'absolute',
+                left: '50vw',
+                transform: 'translateX(-50%)',
+                top: '-50%'
+            } ,
+            alertTitle: "",
+            alertContent:""
         }
     }
     componentDidMount=()=>{
@@ -64,12 +74,30 @@ export default class Register extends Component{
         })
         .then((json)=>{
             if(json.mailExist){
-                alert('This mail are ready in use!')
-                console.log('mail exists yet')
+                this.setState({
+                    alertStyle: {
+                        position: 'absolute',
+                        left: '50vw',
+                        transform: 'translateX(-50%)',
+                        top: '35%',
+                        transition: 'top 1s'
+                    } ,
+                    alertTitle: 'This mail are ready in use!',
+                    alertContent:"Try using another"
+                })
             }else{
                 if(json.userExist){
-                    alert('This user are ready in use!')
-                    console.log('user exists yet')
+                    this.setState({
+                        alertStyle: {
+                            position: 'absolute',
+                            left: '50vw',
+                            transform: 'translateX(-50%)',
+                            top: '35%',
+                            transition: 'top 1s'
+                        } ,
+                        alertTitle: 'This user name are ready in use!',
+                        alertContent:"Try using another"
+                    })
                 } else{
                     this.setState({
                         redir: true
@@ -80,9 +108,20 @@ export default class Register extends Component{
 
         e.preventDefault();
     }
+    closeAlert=()=>{
+        this.setState({
+            alertStyle: {
+                position: 'absolute',
+                left: '50vw',
+                transform: 'translateX(-50%)',
+                top: '-50%',
+                transition: 'top 1s'
+            }
+        })
+    }
     render(){
         if(this.state.load){
-            return <h1>Loading</h1>
+            return <Loading/>
         } else{
             if(this.state.redir){
                 return <Redirect to='/home'></Redirect>
@@ -105,11 +144,17 @@ export default class Register extends Component{
                             <label htmlFor='pass'>Password</label>
                             <input className='form-control p-1 mb-2'type='password' id='pass' name='pass' onChange={(e)=>this.inputChange(e)} value={this.state.pass}></input>
     
-                            <button className='btn btn-success mx-3 my-1'type='submit'>CREATE ACCOUNT</button>
+                            <button className='btn btn-info mx-3 my-1'type='submit'>CREATE ACCOUNT</button>
                             <Link to='/'className='btn btn-outline-secondary mx-4 my-1'>
                                 I have an account 
                             </Link>
-                        </form>  
+                        </form> 
+                        <Alert
+                            style= {this.state.alertStyle}
+                            title= {this.state.alertTitle}
+                            content= {this.state.alertContent}
+                            func= {this.closeAlert} 
+                        /> 
                     </Fragment> 
                 )
             }
