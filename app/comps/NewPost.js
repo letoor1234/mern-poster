@@ -62,7 +62,7 @@ export default class Posts extends Component{
                         maxWidth: '90%',
                         maxHeight: '5em'
                     }}className='form-control p-1 m-2'type="text" id='content' onChange={(e)=>this.inputChange(e)} value={this.state.content}></textarea>
-                    <button className='btn btn-success m-3' type='submit'>Post!</button>
+                    <button className='btn btn-info m-3' type='submit'>Post!</button>
                 </form>
             </Fragment>
         )

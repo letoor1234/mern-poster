@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom'
 import Posts from './Posts'
 import NewPost from './NewPost'
 import UserInfo from './UserInfo'
-
+import Loading from './Loading'
 export default class Home extends Component{
     constructor(props){
         super(props)
@@ -17,7 +17,28 @@ export default class Home extends Component{
         }
     }
     componentDidMount=()=>{
+        this.getData();
+        this.getUser()
+    }
+    getUser=()=>{
         fetch('/api/users/auth', {credentials:'include'})
+        .then((res)=>{
+            return res.json()
+        })
+        .then((json)=>{
+            if(json.denegated){
+                this.setState({
+                    redir: true
+                })
+            }else{
+                this.setState({
+                    userData: json
+                })
+            }
+        })
+    }
+    getData=()=>{
+        fetch('/api/friends/myfriends', {credentials:'include'})
         .then((res)=>{
             return res.json()
         })
@@ -25,35 +46,23 @@ export default class Home extends Component{
             this.setState({
                 load: false
             })
-            if(!json.user){
+            if(json.denegated){
                 this.setState({
                     redir: true
                 })
-            } else{
+            }else{
                 this.setState({
-                    userData: json
+                    posts: json
                 })
             }
-        })
-        this.getData();
-    }
-    getData=()=>{
-        fetch('/api/posts', {credentials:'include'})
-        .then((res)=>{
-            return res.json()
-        })
-        .then((json)=>{
-            this.setState({
-                posts: json
-            })
         })
     }
     render(){
         if(this.state.load){
-            return(<h1>LOADING...</h1>)
+            return(<Loading/>) 
         } else{
             if(this.state.redir){
-                return(<Redirect to='/'></Redirect>)
+                return(<Redirect to='/'></Redirect>) 
             } else{
                 return(
                     <Fragment>
@@ -65,6 +74,7 @@ export default class Home extends Component{
                         />
                         <Posts
                             posts={this.state.posts}
+                            user={this.state.userData.user}
                             update={this.getData}
                         />
 

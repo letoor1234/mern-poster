@@ -1,5 +1,5 @@
 import React, { Component,Fragment } from 'react'
-import {Redirect} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 export default class UserInfo extends Component{
     constructor(props){
         super(props)
@@ -26,7 +26,7 @@ export default class UserInfo extends Component{
                     float: 'right'
                 }}>
                     <h2 className='text-center card-header bg-dark text-light mb-1'>{this.props.data.user}</h2>
-    
+                    <Link to='/search'>Friends</Link>
                     <button className='btn btn-danger mx-3 my-1'type='button' onClick={this.logOut}>LOGOUT</button>
                 </div>
             )

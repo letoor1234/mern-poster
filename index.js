@@ -36,11 +36,12 @@ app.use(passport.session());
 //Routes
 app.use('/api/users', require('./routes/user.routes'));
 app.use('/api/posts', require('./routes/posts.routes'));
+app.use('/api/friends', require('./routes/friends.routes'));
 
 //Statics
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('*', (req, res) => {                       
+app.get('*'|| '*/*', (req, res) => {                       
     res.sendFile(path.resolve(__dirname, './public/index.html'));                               
   });
 //Start server

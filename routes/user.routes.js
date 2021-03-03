@@ -7,7 +7,6 @@ const passport=require('passport');
 const salt = 10; 
 const User=require('../models/user');
 
-
 router.post('/register', (req,res,next)=> {
 	passport.authenticate('local-register', (err,user,info)=>{
 		const newUser = user.user;
