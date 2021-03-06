@@ -35,21 +35,27 @@ export default class Profile extends Component{
     filterFriends=()=>{
         var thisFriend = this.state.user
         const array = this.state.friends.friends
-        var newArray = array.filter((item)=>{
-            const itemData = item.friendId.toUpperCase()
-            const textData = thisFriend.toUpperCase()
-            return itemData.indexOf(textData) > -1
-          })
-        if(newArray.length >= 1){
-            this.setState({
-                button: (<button onClick={this.deleteFriend} className='btn btn-danger'>Delete</button>)
-                
-            })
+        if(array){
+            var newArray = array.filter((item)=>{
+                const itemData = item.friendId.toUpperCase()
+                const textData = thisFriend.toUpperCase()
+                return itemData.indexOf(textData) > -1
+              })
+              if(newArray.length >= 1){
+                this.setState({
+                    button: (<button onClick={this.deleteFriend} className='btn btn-danger'>Delete</button>)
+                    
+                })
+                }else{
+                    this.setState({
+                        button: (<button onClick={this.addFriend} className='btn btn-info'>Add</button>)
+                    })
+                }
         }else{
             this.setState({
                 button: (<button onClick={this.addFriend} className='btn btn-info'>Add</button>)
             })
-        }
+        } 
     }
     getPosts=()=>{
         const API='/api/posts/'+this.state.user

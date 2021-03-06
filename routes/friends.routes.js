@@ -26,15 +26,19 @@ router.get('/myfriends', async (req, res)=>{
             myPosts.map((myPost)=>{
                 allPosts.push(myPost)
             })
-            Promise.all(myList.friends.map(async(friend)=>{
-                var frPosts=await Post.find({userId: friend.friendId})
-                frPosts.map((post)=>{
-                    allPosts.push(post)
+            if(myList.friends){
+                Promise.all(myList.friends.map(async(friend)=>{
+                    var frPosts=await Post.find({userId: friend.friendId})
+                    frPosts.map((post)=>{
+                        allPosts.push(post)
+                    })
+                })).then(()=>{
+                    const ordenatedPosts=allPosts.sort((a,b)=> (a.creation < b.creation ? 1 : -1));
+                    res.json(ordenatedPosts)
                 })
-            })).then(()=>{
-                const ordenatedPosts=allPosts.sort((a,b)=> (a.creation < b.creation ? 1 : -1));
-                res.json(ordenatedPosts)
-            })
+            }else{
+                res.json(allPosts)
+            }
         } else{
             const myOrdenatedPosts=myPosts.sort((a,b)=> (a.creation < b.creation ? 1 : -1));
             res.json(myOrdenatedPosts)
@@ -48,7 +52,15 @@ router.get('/list', async (req, res)=>{
     const user= req.user
     if(user){
         const list = await Friend.findOne({userId:user.user});
-        res.json(list);
+        if(list){
+            res.json(list);
+        } else{
+            const newList = new Friend();
+            newList.userId= user.user;
+            newList.friends= {};
+            await newList.save();
+            res.json(newList);
+        }  
     } else{
         res.json({denegated: true})
     }
