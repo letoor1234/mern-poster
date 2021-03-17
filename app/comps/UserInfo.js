@@ -21,8 +21,7 @@ export default class UserInfo extends Component{
     render(){
         if(!this.state.redir){
             return(
-                <div className='m-3 p-1 card' style={{
-                    width: '30vw',
+                <div className='col-sm-12 col-md-10 col-lg-4 m-3 p-1 card' style={{
                     float: 'right'
                 }}>
                     <h2 className='text-center card-header bg-dark text-light mb-1'>{this.props.data.user}</h2>

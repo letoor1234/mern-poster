@@ -51,10 +51,9 @@ export default class Posts extends Component{
     render(){
         return(
             <Fragment>
-                <form className='card m-3 p-1 m-3'onSubmit={(e)=>this.send(e)} style={{
+                <form className='col-sm-12 col-md-10 col-lg-7 card m-3 p-1 m-3'onSubmit={(e)=>this.send(e)} style={{
                     float: 'left',
                     display: 'flex',
-                    width: '55vw',
                     flexDirection: 'column'
                 }}>
                     <label htmlFor='title'>New Post!</label>

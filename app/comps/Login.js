@@ -128,9 +128,8 @@ export default class Login extends Component{
             } else{
                 return(
                     <Fragment>
-                        <form className='m-3 card p-1'onSubmit={(e)=>this.send(e)}style={{
+                        <form className='col-sm-12 col-md-10 col-lg-7 m-3 card p-1'onSubmit={(e)=>this.send(e)}style={{
                                 display: 'flex',
-                                width: '40vw',
                                 flexDirection: 'column'
                         }}>
                             <h3 className='text-center card-header bg-dark text-light mb-1'>Login</h3>

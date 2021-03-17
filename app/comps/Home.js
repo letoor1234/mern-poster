@@ -66,18 +66,21 @@ export default class Home extends Component{
             } else{
                 return(
                     <Fragment>
-                        <NewPost
-                            func={this.getData}
-                        />
-                        <UserInfo
-                            data={this.state.userData}
-                        />
-                        <Posts
-                            posts={this.state.posts}
-                            user={this.state.userData.user}
-                            update={this.getData}
-                        />
-
+                        <div className='row'>
+                            <NewPost
+                                func={this.getData}
+                            />
+                            <UserInfo
+                                data={this.state.userData}
+                            />
+                        </div>
+                        <div className='row'>
+                            <Posts
+                                posts={this.state.posts}
+                                user={this.state.userData.user}
+                                update={this.getData}
+                            />
+                        </div>
                     </Fragment>
                 )
             }    

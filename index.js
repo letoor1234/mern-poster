@@ -1,9 +1,7 @@
 const express = require('express');
 const passport=require('passport');
 const path = require('path');
-const cors = require('cors');
 const cookieParser=require('cookie-parser');
-const bodyParser=require('body-parser');
 const session= require('express-session');
 //Statics here
 
@@ -12,15 +10,13 @@ const session= require('express-session');
 const app = express();
 require('./passport/localAuth');
 //Settings
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 4000);
 
 //Middlewares
 app.use(express.json());
 var corsOptions={
     credentials: true 
 }
-app.use(cors(corsOptions));
-app.use(bodyParser.json());
 app.use(cookieParser('dontSpyIt'));
 
 app.use(session({

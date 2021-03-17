@@ -9,8 +9,6 @@ const User=require('../models/user');
 
 router.post('/register', (req,res,next)=> {
 	passport.authenticate('local-register', (err,user,info)=>{
-		const newUser = user.user;
-		const pass = user.pass;
 		if(!err){
 			if(!user){
 				res.json(info);
@@ -44,7 +42,6 @@ router.post('/login', async (req,res, next)=>{
 		} else{
 			console.log(err);
 		}
-		
 	})(req, res, next);
 });
 

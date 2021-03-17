@@ -26,9 +26,8 @@ export default class Posts extends Component{
         } else{
             return(
                 <Fragment>
-                    <table className='card m-3 p-1 m-3'style={{
-                        float: 'none',
-                        width: '55vw'
+                    <table className='col-sm-12 col-md-10 col-lg-7 card m-3 p-1 m-3'style={{
+                        float: 'none'
                     }}>
                         <tbody>
                         {this.props.posts.map((post)=>{

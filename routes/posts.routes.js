@@ -54,7 +54,7 @@ router.delete('/:id',  async(req, res)=>{
     const user=req.user
     if(user){
         const post = await Post.findById(req.params.id);
-        const remove= await post.remove()
+        await post.remove()
         res.json({success: true})
     }else{
         res.json({denegated: true}) 

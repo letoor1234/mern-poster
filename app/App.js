@@ -15,24 +15,30 @@ class App extends Component {
   render(){
     return (
       <Router>
-        <h1 className='bg-dark px-4 py-2'><Link to='/'><div style={{
+        <h1 className='title bg-dark px-4 py-2'><Link to='/'><div style={{
           display: 'inline',
         }}className='text-light font-weight-bold'>post</div><div style={{
           display: 'inline',
         }}className='text-info font-weight-bold'>ER!</div></Link></h1>
-        <Route path='/' exact>
-          <Login/>
-        </Route>
-        <Route path='/register'>
-          <Regis/>
-        </Route>
-        <Route path='/home'>
-          <Home/>
-        </Route>
-        <Route path='/search'>
-          <Searcher/>
-        </Route>
-        <Route path="/profile/:user" component={Profile}/>
+        <div className='container'>
+          <Route path='/' exact>
+            <div className='row'>
+              <Login/>
+            </div>
+          </Route>
+          <Route path='/register'>
+            <div className='row'>
+              <Regis/>
+            </div>
+          </Route>
+          <Route path='/home'>
+            <Home/>
+          </Route>
+          <Route path='/search'>
+            <Searcher/>
+          </Route>
+          <Route path="/profile/:user" component={Profile}/>
+        </div>
       </Router>
     );
   }
