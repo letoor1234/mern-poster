@@ -1,6 +1,10 @@
 const mongoose = require ('mongoose');
 
+<<<<<<< HEAD
 const URI = process.env.MLAB_URI;
+=======
+const URI = 'mongodb://localhost/tasker';
+>>>>>>> release/second
 
 mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(db =>{
