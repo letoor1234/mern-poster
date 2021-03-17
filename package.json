@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "webpack": "webpack --mode development --watch"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -21,18 +19,5 @@
     "passport-local": "^1.0.0",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.13.10",
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/preset-env": "^7.13.10",
-    "@babel/preset-react": "^7.12.13",
-    "babel-loader": "^8.2.2",
-    "nodemon": "^2.0.7",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0",
-    "webpack": "^5.26.2",
-    "webpack-cli": "^4.5.0"
   }
 }
